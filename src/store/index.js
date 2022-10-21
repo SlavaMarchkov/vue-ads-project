@@ -1,17 +1,18 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+import ads from "@/store/ads";
+import user from "@/store/user";
+import shared from "@/store/shared";
+import orders from "@/store/orders";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
-  }
-})
+    ads,
+    user,
+    shared,
+    orders,
+  },
+});

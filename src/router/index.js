@@ -1,29 +1,63 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import AuthGuard from "@/router/auth-guard";
 
-Vue.use(VueRouter)
+import AppHome from "@/components/AppHome";
+import AuthLogin from "@/components/Auth/AuthLogin";
+import AuthRegistration from "@/components/Auth/AuthRegistration";
+import UserOrders from "@/components/User/UserOrders";
+import AdsList from "@/components/Ads/AdsList";
+import AdCreate from "@/components/Ads/AdCreate";
+import AdView from "@/components/Ads/AdView";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "",
+    name: "home",
+    component: AppHome,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/login",
+    name: "login",
+    component: AuthLogin,
+  },
+  {
+    path: "/registration",
+    name: "registration",
+    component: AuthRegistration,
+  },
+  {
+    path: "/orders",
+    name: "orders",
+    component: UserOrders,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/list",
+    name: "list",
+    component: AdsList,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/new",
+    name: "newAd",
+    component: AdCreate,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/ad/:id",
+    props: true,
+    name: "ad",
+    component: AdView,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
